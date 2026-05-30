@@ -17,8 +17,17 @@ i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
 lcd = I2cLcd(i2c, I2C_ADDR, I2C_NUM_ROWS, I2C_NUM_COLS)
 
 networkDetails = wifiDetails()
-st = connect_to_wifi(networkDetails.getSSID(), networkDetails.getPassword())
-print(f"program finished  {st}")
+st = None
+
+while st is None:
+    # Try to connect with retries
+    st = connect_to_wifi(networkDetails.getSSID(), networkDetails.getPassword())
+    
+    if st is None:
+        lcd.putstr("Connection failed")
+        time.sleep(2)  # Wait before retrying
+
+print(f"Got IP:  {st}") 
 lcd.putstr(st)
 
 page = open("index.html","r")
