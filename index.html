@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Pico pager</title>
+
+    <style>
+
+        :root {
+            --input-width: 320px; /* Configure input width here */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            display: flex;
+            align-items: center;
+            gap: 40px; /* Space between input and button */
+        }
+
+        .message-input {
+            width: var(--input-width);
+            height: 58px; /* Same height as button */
+            font-size: 20px;
+            padding: 0 15px;
+            border-radius: 15px;
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .button {
+            display: inline-block;
+            width: 180px;
+            height: 58px; /* Same height as input */
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:active {
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Send a Message to Pico LCD1602</h1>
+    <form method="POST">
+        <div class="form-container">
+            <input
+                type="text"
+                id="message"
+                name="message"
+                class="message-input"
+                placeholder="short msg"
+                minlength="1"
+                maxlength="15"
+                required>
+
+            <button type="submit" class="button">
+                Send
+            </button>
+        </div>
+    </form>
+    <br>
+</body>
+</html>
