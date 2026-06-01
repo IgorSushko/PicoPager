@@ -5,6 +5,8 @@ from pico_i2c_lcd import I2cLcd
 from phew import connect_to_wifi, server
 from wifiCredentials import wifiDetails
 
+button = Pin(15, Pin.IN, Pin.PULL_UP)
+
 # Define I2C constants
 I2C_ADDR     = 0x27  # Default I2C address for LCD backpack (some are 0x3F)
 I2C_NUM_ROWS = 2
@@ -24,10 +26,15 @@ while st is None:
     st = connect_to_wifi(networkDetails.getSSID(), networkDetails.getPassword())
     
     if st is None:
+        lcd.clear()
         lcd.putstr("Connection failed")
         time.sleep(2)  # Wait before retrying
 
-print(f"Got IP:  {st}") 
+print(f"Got IP:  {st}")
+lcd.clear()
+lcd.move_to(0, 0)
+lcd.putstr("Assigned IP:")
+lcd.move_to(0, 1)
 lcd.putstr(st)
 
 page = open("index.html","r")
@@ -44,7 +51,7 @@ def save_message(request):
     print("Received message:", message)
     lcd.clear()
     lcd.move_to(0, 0)
-    lcd.putstr("Received:")
+    lcd.putstr("Received message:")
     lcd.move_to(0, 1)
     lcd.putstr(message[:16])
     return str(html)
