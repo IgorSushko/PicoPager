@@ -3,6 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Pico pager</title>
+<script>
+let alertShown = false;
+
+setInterval(function() {
+    fetch('/check_approval')
+        .then(response => response.text())
+        .then(status => {
+            console.log("Status:", status);
+
+            if (status.trim() === 'approved' && !alertShown) {
+                alert('Your msg is received and has been approved');
+                alertShown = true;
+            }
+        });
+}, 1500);
+</script>
 
     <style>
 
